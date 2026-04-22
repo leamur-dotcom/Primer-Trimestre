@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="es">
+<head><meta charset="UTF-8"><title>Square — Comensales & Ticket Medio 2025 vs 2026</title>
+<style>
+  body { font-family: Arial, sans-serif; max-width: 900px; margin: 0 auto; padding: 20px; background: #fff; color: #111; }
+  h1 { font-size: 18px; font-weight: 500; margin-bottom: 3px; }
+  .sub { color: #666; font-size: 13px; margin-bottom: 20px; }
+  .tabs { display: flex; gap: 6px; margin-bottom: 18px; flex-wrap: wrap; }
+  .tab { font-size: 12px; padding: 5px 14px; border-radius: 20px; border: 1px solid #ccc; cursor: pointer; background: transparent; color: #555; }
+  .tab.active { background: #e6f1fb; color: #185fa5; border-color: #185fa5; }
+  .panel { display: none; }
+  .panel.active { display: block; }
+  .kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px,1fr)); gap: 10px; margin-bottom: 16px; }
+  .kpi { background: #f5f5f3; border-radius: 8px; padding: 12px 14px; }
+  .kpi-label { font-size: 11px; color: #666; margin: 0 0 4px; }
+  .kpi-val { font-size: 17px; font-weight: 500; margin: 0; }
+  .kpi-sub { font-size: 11px; color: #888; margin: 3px 0 0; }
+  .red { color: #a32d2d; } .green { color: #0f6e56; } .orange { color: #854f0b; } .blue { color: #185fa5; }
+  table { width: 100%; border-collapse: collapse; font-size: 12px; margin-bottom: 12px; }
+  thead th { font-weight: 500; color: #666; padding: 6px 8px; text-align: right; border-bottom: 1px solid #ddd; font-size: 11px; }
+  thead th:first-child { text-align: left; }
+  tbody td { padding: 6px 8px; text-align: right; border-bottom: 1px solid #eee; }
+  tbody td:first-child { text-align: left; }
+  .total-row td { font-weight: 500; background: #f5f5f3; }
+  .section-title { font-size: 11px; font-weight: 600; color: #888; letter-spacing: 0.06em; text-transform: uppercase; margin: 16px 0 8px; }
+  .alert { border-radius: 8px; padding: 10px 14px; margin: 10px 0; font-size: 13px; line-height: 1.6; }
+  .alert-warn { background: #faeeda; color: #633806; }
+  .alert-danger { background: #fcebeb; color: #791f1f; }
+  .alert-success { background: #eaf3de; color: #173404; }
+  .alert-info { background: #e6f1fb; color: #042c53; }
+  .legend { display: flex; gap: 14px; font-size: 11px; color: #666; margin-bottom: 8px; flex-wrap: wrap; }
+  .legend span { display: flex; align-items: center; gap: 4px; }
+  .dot { width: 10px; height: 10px; border-radius: 2px; display: inline-block; }
+  .insight-box { border-left: 3px solid #378ADD; padding: 10px 14px; margin: 10px 0; background: #f5f9ff; border-radius: 0 8px 8px 0; font-size: 13px; line-height: 1.6; }
+</style>
+</head>
+<body>
+<h1>Comensales, ticket medio y fidelización — Square</h1>
+<p class="sub">BAR CASA MONTJUÏC, S.L. &nbsp;·&nbsp; Informes Square Ene–Mar 2025 vs 2026</p>
+
+<div class="tabs">
+  <button class="tab active" onclick="showTab('ticket',this)">Ticket medio</button>
+  <button class="tab" onclick="showTab('comensales',this)">Comensales</button>
+  <button class="tab" onclick="showTab('transacciones',this)">Transacciones</button>
+  <button class="tab" onclick="showTab('fidelizacion',this)">Fidelización</button>
+  <button class="tab" onclick="showTab('resumen',this)">Cuadro completo</button>
+</div>
+
+<!-- TICKET MEDIO -->
+<div id="panel-ticket" class="panel active">
+  <div class="kpi-grid">
+    <div class="kpi"><p class="kpi-label">Ticket/comensal 2025</p><p class="kpi-val blue">32,74 €</p><p class="kpi-sub">Ene–Mar total</p></div>
+    <div class="kpi"><p class="kpi-label">Ticket/comensal 2026</p><p class="kpi-val green">37,39 €</p><p class="kpi-sub">Ene–Mar total</p></div>
+    <div class="kpi"><p class="kpi-label">Variación ticket</p><p class="kpi-val green">+4,65 €</p><p class="kpi-sub">+14,2%</p></div>
+    <div class="kpi"><p class="kpi-label">Ticket/transacción 2025</p><p class="kpi-val blue">59,22 €</p><p class="kpi-sub">por comanda</p></div>
+    <div class="kpi"><p class="kpi-label">Ticket/transacción 2026</p><p class="kpi-val green">56,75 €</p><p class="kpi-sub">por comanda</p></div>
+    <div class="kpi"><p class="kpi-label">Comensales/transacción</p><p class="kpi-val orange">1,81 → 1,52</p><p class="kpi-sub">grupo más pequeño</p></div>
+  </div>
+
+  <p class="section-title">Ticket por comensal mensual (€)</p>
+  <div class="legend"><span><span class="dot" style="background:#378ADD"></span>2025</span><span><span class="dot" style="background:#1D9E75"></span>2026</span></div>
+  <div style="position:relative;width:100%;height:200px;"><canvas id="ticketChart" role="img" aria-label="Ticket medio por comensal mensual 2025 vs 2026"></canvas></div>
+
+  <table style="margin-top:12px;">
+    <thead><tr><th>Mes</th><th>Ventas netas</th><th>Comensales</th><th>Ticket/comensal</th><th>Transacciones</th><th>Ticket/transacción</th><th>Com./transacc.</th></tr></thead>
+    <tbody>
+      <tr><td>Ene 2025</td><td>44.661 €</td><td>1.435</td><td class="blue">31,12 €</td><td>785</td><td>56,89 €</td><td>1,83</td></tr>
+      <tr><td>Feb 2025</td><td>38.604 €</td><td>1.129</td><td class="blue">34,19 €</td><td>733</td><td>52,67 €</td><td>1,54</td></tr>
+      <tr><td>Mar 2025</td><td>50.227 €</td><td>1.513</td><td class="blue">33,20 €</td><td>736</td><td>68,24 €</td><td>2,06</td></tr>
+      <tr class="total-row"><td>Total 2025</td><td>133.493 €</td><td>4.077</td><td class="blue">32,74 €</td><td>2.254</td><td>59,22 €</td><td>1,81</td></tr>
+      <tr><td>Ene 2026</td><td>36.998 €</td><td>1.005</td><td class="green">36,82 €</td><td>579</td><td>63,90 €</td><td>1,74</td></tr>
+      <tr><td>Feb 2026</td><td>36.630 €</td><td>1.014</td><td class="green">36,12 €</td><td>664</td><td>55,16 €</td><td>1,53</td></tr>
+      <tr><td>Mar 2026</td><td>39.992 €</td><td>1.020</td><td class="green">39,21 €</td><td>759</td><td>52,69 €</td><td>1,34</td></tr>
+      <tr class="total-row"><td>Total 2026</td><td>113.620 €</td><td>3.039</td><td class="green">37,39 €</td><td>2.002</td><td>56,75 €</td><td>1,52</td></tr>
+    </tbody>
+  </table>
+
+  <div class="insight-box">
+    <strong>Hallazgo clave:</strong> el ticket medio por persona <em>subió</em> un 14,2% en 2026 (de 32,74€ a 37,39€). Cada comensal gasta más. El problema no es que gasten menos — es que vienen <strong>1.038 comensales menos</strong> en el trimestre. El nuevo menú atrae a menos gente pero más gastadora.
+  </div>
+</div>
+
+<!-- COMENSALES -->
+<div id="panel-comensales" class="panel">
+  <div class="kpi-grid">
+    <div class="kpi"><p class="kpi-label">Comensales 2025</p><p class="kpi-val blue">4.077</p><p class="kpi-sub">Ene–Mar</p></div>
+    <div class="kpi"><p class="kpi-label">Comensales 2026</p><p class="kpi-val red">3.039</p><p class="kpi-sub">Ene–Mar</p></div>
+    <div class="kpi"><p class="kpi-label">Caída comensales</p><p class="kpi-val red">–1.038</p><p class="kpi-sub">–25,5%</p></div>
+    <div class="kpi"><p class="kpi-label">Comensales/día 2025</p><p class="kpi-val blue">44,8</p><p class="kpi-sub">media diaria</p></div>
+    <div class="kpi"><p class="kpi-label">Comensales/día 2026</p><p class="kpi-val red">33,4</p><p class="kpi-sub">media diaria</p></div>
+    <div class="kpi"><p class="kpi-label">Para recuperar resultado</p><p class="kpi-val orange">+275/mes</p><p class="kpi-sub">~+9/día extra</p></div>
+  </div>
+
+  <p class="section-title">Comensales mensuales</p>
+  <div class="legend"><span><span class="dot" style="background:#378ADD"></span>2025</span><span><span class="dot" style="background:#1D9E75"></span>2026</span></div>
+  <div style="position:relative;width:100%;height:200px;"><canvas id="comensalesChart" role="img" aria-label="Comensales mensuales 2025 vs 2026"></canvas></div>
+
+  <div class="alert alert-danger" style="margin-top:12px;">
+    La caída de comensales es mayor que la caída de ventas (–25,5% vs –14,8%), precisamente porque el ticket subió. Enero pierde 430 comensales (de 1.435 a 1.005), Febrero pierde 115 y Marzo pierde 493. El cambio de carta fue más brusco en los meses extremos del trimestre.
+  </div>
+
+  <div class="insight-box">
+    <strong>¿Cuántos comensales hacen falta para volver a 2025?</strong> Con el ticket actual de 37,39€, para alcanzar los 133.493€ de ventas de 2025 harían falta 3.570 comensales (+531 vs 2026), es decir unos 177 más al mes. Para llegar al break-even operativo con los costes actuales bastan 42.500€/mes, que con 37,39€/comensal son 1.137 comensales/mes (+107 sobre la media actual de ~1.013).
+  </div>
+</div>
+
+<!-- TRANSACCIONES -->
+<div id="panel-transacciones" class="panel">
+  <div class="kpi-grid">
+    <div class="kpi"><p class="kpi-label">Transacciones 2025</p><p class="kpi-val blue">2.254</p><p class="kpi-sub">Ene–Mar</p></div>
+    <div class="kpi"><p class="kpi-label">Transacciones 2026</p><p class="kpi-val orange">2.002</p><p class="kpi-sub">Ene–Mar</p></div>
+    <div class="kpi"><p class="kpi-label">Caída transacciones</p><p class="kpi-val orange">–252</p><p class="kpi-sub">–11,2%</p></div>
+    <div class="kpi"><p class="kpi-label">Artículos vendidos 2025</p><p class="kpi-val blue">17.114</p><p class="kpi-sub">Ene–Mar (total)</p></div>
+    <div class="kpi"><p class="kpi-label">Artículos vendidos 2026</p><p class="kpi-val red">13.746</p><p class="kpi-sub">Ene–Mar (total)</p></div>
+    <div class="kpi"><p class="kpi-label">Art./transacción 2026</p><p class="kpi-val green">6,9</p><p class="kpi-sub">vs 7,6 en 2025</p></div>
+  </div>
+
+  <p class="section-title">Transacciones vs comensales — comparativa</p>
+  <div style="position:relative;width:100%;height:220px;"><canvas id="transChart" role="img" aria-label="Transacciones y comensales mensuales 2025 vs 2026"></canvas></div>
+
+  <div class="alert alert-info" style="margin-top:12px;">
+    Las transacciones caen solo un 11,2% mientras los comensales caen un 25,5%. Esto confirma que los grupos son más pequeños en 2026: de media 1,81 personas por comanda en 2025 vs 1,52 en 2026. Las cenas de grupo y los eventos sociales grandes han disminuido, mientras que las visitas individuales o de pareja se mantienen mejor.
+  </div>
+</div>
+
+<!-- FIDELIZACIÓN -->
+<div id="panel-fidelizacion" class="panel">
+  <div class="kpi-grid">
+    <div class="kpi"><p class="kpi-label">Recurrentes 2025</p><p class="kpi-val blue">379</p><p class="kpi-sub">Ene–Mar total</p></div>
+    <div class="kpi"><p class="kpi-label">Recurrentes 2026</p><p class="kpi-val red">248</p><p class="kpi-sub">Ene–Mar total</p></div>
+    <div class="kpi"><p class="kpi-label">Caída recurrentes</p><p class="kpi-val red">–131</p><p class="kpi-sub">–34,6%</p></div>
+    <div class="kpi"><p class="kpi-label">% recurrentes 2025</p><p class="kpi-val blue">19,3%</p><p class="kpi-sub">media trimestral</p></div>
+    <div class="kpi"><p class="kpi-label">% recurrentes 2026</p><p class="kpi-val red">14,3%</p><p class="kpi-sub">media trimestral</p></div>
+    <div class="kpi"><p class="kpi-label">Tendencia</p><p class="kpi-val red">↓ –5 pp</p><p class="kpi-sub">en fidelización</p></div>
+  </div>
+
+  <p class="section-title">% clientes recurrentes por mes</p>
+  <div style="position:relative;width:100%;height:200px;"><canvas id="recurChart" role="img" aria-label="Porcentaje clientes recurrentes mensual 2025 vs 2026"></canvas></div>
+
+  <table style="margin-top:12px;">
+    <thead><tr><th>Mes</th><th>Clientes atendidos</th><th>Nuevos</th><th>Recurrentes</th><th>% recurrentes</th></tr></thead>
+    <tbody>
+      <tr><td>Ene 2025</td><td>667</td><td>519</td><td class="blue">148</td><td class="blue">22%</td></tr>
+      <tr><td>Feb 2025</td><td>636</td><td>522</td><td class="blue">114</td><td class="blue">18%</td></tr>
+      <tr><td>Mar 2025</td><td>678</td><td>561</td><td class="blue">117</td><td class="blue">17%</td></tr>
+      <tr class="total-row"><td>Total 2025</td><td>1.981</td><td>1.602</td><td class="blue">379</td><td class="blue">19,1%</td></tr>
+      <tr><td>Ene 2026</td><td>507</td><td>436</td><td class="red">71</td><td class="red">14%</td></tr>
+      <tr><td>Feb 2026</td><td>584</td><td>499</td><td class="red">85</td><td class="red">15%</td></tr>
+      <tr><td>Mar 2026</td><td>638</td><td>546</td><td class="red">92</td><td class="red">14%</td></tr>
+      <tr class="total-row"><td>Total 2026</td><td>1.729</td><td>1.481</td><td class="red">248</td><td class="red">14,3%</td></tr>
+    </tbody>
+  </table>
+
+  <div class="alert alert-danger">
+    Los clientes recurrentes cayeron un 34,6%, mucho más que los nuevos (–7,5%). Esto es la señal más preocupante de toda la análisis: los clientes habituales del Tiberi Bar están dejando de volver. El cambio de carta probablemente alejó a los que venían por platos concretos como la Ensaladilla, la Sardina o las Mandonguilles. Recuperar un recurrente cuesta mucho menos que captar un nuevo cliente.
+  </div>
+</div>
+
+<!-- CUADRO COMPLETO -->
+<div id="panel-resumen" class="panel">
+  <p class="section-title">Cuadro de mando completo — Square + P&G integrado</p>
+  <table>
+    <thead><tr><th>KPI</th><th>Ene 2025</th><th>Feb 2025</th><th>Mar 2025</th><th>Total 2025</th><th>Ene 2026</th><th>Feb 2026</th><th>Mar 2026</th><th>Total 2026</th><th>Var. %</th></tr></thead>
+    <tbody>
+      <tr><td>Ventas netas (€)</td><td>44.661</td><td>38.604</td><td>50.227</td><td class="blue">133.493</td><td>36.998</td><td>36.630</td><td>39.992</td><td class="green">113.620</td><td class="red">–14,8%</td></tr>
+      <tr><td>Comensales</td><td>1.435</td><td>1.129</td><td>1.513</td><td class="blue">4.077</td><td>1.005</td><td>1.014</td><td>1.020</td><td class="red">3.039</td><td class="red">–25,5%</td></tr>
+      <tr><td>Transacciones</td><td>785</td><td>733</td><td>736</td><td class="blue">2.254</td><td>579</td><td>664</td><td>759</td><td class="orange">2.002</td><td class="orange">–11,2%</td></tr>
+      <tr><td>Artículos vendidos</td><td>5.597</td><td>5.124</td><td>6.393</td><td class="blue">17.114</td><td>4.316</td><td>4.491</td><td>4.939</td><td class="red">13.746</td><td class="red">–19,7%</td></tr>
+      <tr><td>Ticket/comensal (€)</td><td>31,12</td><td>34,19</td><td>33,20</td><td class="blue">32,74</td><td>36,82</td><td>36,12</td><td>39,21</td><td class="green">37,39</td><td class="green">+14,2%</td></tr>
+      <tr><td>Ticket/transacción (€)</td><td>56,89</td><td>52,67</td><td>68,24</td><td class="blue">59,22</td><td>63,90</td><td>55,16</td><td>52,69</td><td class="orange">56,75</td><td class="orange">–4,2%</td></tr>
+      <tr><td>Com./transacción</td><td>1,83</td><td>1,54</td><td>2,06</td><td class="blue">1,81</td><td>1,74</td><td>1,53</td><td>1,34</td><td class="red">1,52</td><td class="red">–16,0%</td></tr>
+      <tr><td>Clientes recurrentes</td><td>148</td><td>114</td><td>117</td><td class="blue">379</td><td>71</td><td>85</td><td>92</td><td class="red">248</td><td class="red">–34,6%</td></tr>
+      <tr><td>% recurrentes</td><td>22%</td><td>18%</td><td>17%</td><td class="blue">19,1%</td><td>14%</td><td>15%</td><td>14%</td><td class="red">14,3%</td><td class="red">–4,8 pp</td></tr>
+      <tr><td>Mejor día semana</td><td>Sábado</td><td>Sábado</td><td>Sábado</td><td>—</td><td>Sábado</td><td>Sábado</td><td>Domingo</td><td>—</td><td>—</td></tr>
+    </tbody>
+  </table>
+
+  <div class="alert alert-info" style="margin-top:14px;">
+    <strong>Lectura integrada:</strong> los datos de Square revelan que el problema tiene dos caras. La cara positiva: el ticket por persona subió +14,2%, la carta nueva funciona en consumo unitario. La cara negativa: hay 1.038 comensales menos (–25,5%) y 131 recurrentes menos (–34,6%). El negocio tiene clientes que gastan más pero son menos y vuelven menos. La estrategia de recuperación debe focalizarse en dos cosas: traer más gente (especialmente grupos grandes, de 1,81 a 1,52 personas/comanda) y recuperar recurrentes con platos ancla que generen hábito de visita.
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script>
+function showTab(id, btn) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('panel-' + id).classList.add('active');
+  if (id === 'comensales' && !window.comDone) { buildCom(); window.comDone = true; }
+  if (id === 'transacciones' && !window.transDone) { buildTrans(); window.transDone = true; }
+  if (id === 'fidelizacion' && !window.recurDone) { buildRecur(); window.recurDone = true; }
+}
+
+const meses = ['Enero', 'Febrero', 'Marzo'];
+const blue = '#378ADD', teal = '#1D9E75';
+
+const baseOpts = (yFmt) => ({
+  responsive: true, maintainAspectRatio: false,
+  plugins: { legend: { display: false }, tooltip: { callbacks: { label: c => ' ' + (typeof yFmt === 'function' ? yFmt(c.parsed.y) : c.parsed.y) } } },
+  scales: {
+    x: { grid: { display: false }, ticks: { color: '#888' } },
+    y: { grid: { color: 'rgba(0,0,0,0.06)' }, ticks: { color: '#888', callback: yFmt || (v => v) } }
+  }
+});
+
+// Ticket chart
+new Chart(document.getElementById('ticketChart'), {
+  type: 'bar',
+  data: {
+    labels: meses,
+    datasets: [
+      { label: '2025', data: [31.12, 34.19, 33.20], backgroundColor: blue, borderRadius: 4 },
+      { label: '2026', data: [36.82, 36.12, 39.21], backgroundColor: teal, borderRadius: 4 }
+    ]
+  },
+  options: { ...baseOpts(v => v.toFixed(2) + ' €'), scales: { x: { grid: { display: false }, ticks: { color: '#888' } }, y: { grid: { color: 'rgba(0,0,0,0.06)' }, ticks: { color: '#888', callback: v => v.toFixed(0) + ' €' }, min: 25, max: 45 } } }
+});
+
+function buildCom() {
+  new Chart(document.getElementById('comensalesChart'), {
+    type: 'bar',
+    data: {
+      labels: meses,
+      datasets: [
+        { label: '2025', data: [1435, 1129, 1513], backgroundColor: blue, borderRadius: 4 },
+        { label: '2026', data: [1005, 1014, 1020], backgroundColor: teal, borderRadius: 4 }
+      ]
+    },
+    options: baseOpts(v => v.toLocaleString('es-ES'))
+  });
+}
+
+function buildTrans() {
+  new Chart(document.getElementById('transChart'), {
+    type: 'bar',
+    data: {
+      labels: ['Ene 2025','Feb 2025','Mar 2025','Ene 2026','Feb 2026','Mar 2026'],
+      datasets: [
+        { label: 'Comensales', data: [1435,1129,1513,1005,1014,1020], backgroundColor: [blue,blue,blue,teal,teal,teal], borderRadius: 4, yAxisID: 'y' },
+        { label: 'Transacciones', data: [785,733,736,579,664,759], type: 'line', borderColor: '#EF9F27', borderWidth: 2, pointRadius: 4, fill: false, yAxisID: 'y2' }
+      ]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { display: false } },
+      scales: {
+        x: { grid: { display: false }, ticks: { color: '#888', font: { size: 10 } } },
+        y: { grid: { color: 'rgba(0,0,0,0.06)' }, ticks: { color: '#888' }, position: 'left' },
+        y2: { ticks: { color: '#854f0b' }, position: 'right', grid: { display: false } }
+      }
+    }
+  });
+}
+
+function buildRecur() {
+  new Chart(document.getElementById('recurChart'), {
+    type: 'bar',
+    data: {
+      labels: meses,
+      datasets: [
+        { label: '2025', data: [22, 18, 17], backgroundColor: blue, borderRadius: 4 },
+        { label: '2026', data: [14, 15, 14], backgroundColor: teal, borderRadius: 4 }
+      ]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { display: false }, tooltip: { callbacks: { label: c => ' ' + c.parsed.y + '%' } } },
+      scales: {
+        x: { grid: { display: false }, ticks: { color: '#888' } },
+        y: { grid: { color: 'rgba(0,0,0,0.06)' }, ticks: { color: '#888', callback: v => v + '%' }, min: 0, max: 25 }
+      }
+    }
+  });
+}
+</script>
+</body>
+</html>
